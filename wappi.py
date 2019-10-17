@@ -53,6 +53,6 @@ class CustomCollection(WappiCollection):
     def helloWorld(self, userName):
         return f"hello world, {userName}" 
 
-collection = Collection()
+collection = CustomCollection()
 wappi = WappiClient('firefox', 'custom')
 wappi.addCollection(collection)
