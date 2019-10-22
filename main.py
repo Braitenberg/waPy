@@ -1,9 +1,16 @@
-from wappyClient import WappyClient
+from client import WappyClient
 
-wappy = WappyClient(webDriver='firefox', name='john')
+wappy = WappyClient(interface_webdriver='firefox', client_name='tritri-bot')
 
-@wappy.command
+
 def hello_world(name):
-    print(f'Hello, {name}')
+    return f'Hello, {name}'
 
-print(wappy.commands)
+
+def get_money(iban_number, valuta):
+    return f"Yes, {iban_number} is a millionaire in {valuta}'s."
+
+
+wappy.initialize_commands([hello_world, get_money])
+wappy.run()
+print('doing stuff...')
