@@ -1,6 +1,6 @@
 from client import WappyClient
 
-wappy = WappyClient(interface_webdriver='firefox', client_name='tritri-bot')
+wappy = WappyClient(interface_webdriver='chrome', client_name='tritri-bot')
 
 
 def hello_world(name):

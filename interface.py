@@ -21,24 +21,22 @@ class WappyInterface:
 
     def start(self):
         print('Interface called, booting webdriver...')
-        if self.webdriver_type.lower() == 'firefox':
+        if self.webdriver_type.lower() == 'chrome':
 
-            options = webdriver.FirefoxOptions()
-            options.add_argument('--user-data-dir=./webdriver_session')
+            options = webdriver.ChromeOptions()
+            options.add_argument('--user-data-dir=./User_Data')
 
-            self.webdriver = webdriver.Firefox(firefox_options=options)
+            self.webdriver = webdriver.Chrome(chrome_options=options)
             self.webdriver.get("https://web.whatsapp.com/")
+
             print(
                 f'driver {self.webdriver_type} booted! Awaiting whatsapp activation...')
+
             try:
                 WebDriverWait(self.webdriver, 20).until(
-                    EC.element_to_be_clickable((By.ID, "X7YrQ")))
-            except:
-                print(
-                    "Stopping interface due to inactivity. Don't forget to activate the whatsapp web client when it boots!")
-                self.stop()
+                    EC.presence_of_element_located((By.XPATH, '//*[@class="X7YrQ"]')))
             finally:
-                print('Nessecairy elements loaded! Listening for queries...')
+                print('Nessecary elements loaded! Listening for queries...')
                 self.active = True
                 while self.active:
                     self.execute_cmd_queries()
@@ -48,7 +46,7 @@ class WappyInterface:
             raise ValueError(f"Invalid driver type: '{self.webdriver_type}'.")
 
     def stop(self):
-        print(f"Stopping interface of client '{self.client}'")
+        print(f"Stopping interface of client '{self.client.name}'")
         self.active = False
         self.webdriver.close()
 
@@ -62,6 +60,29 @@ class WappyInterface:
 
         self.read_msg = last_msg
 
+    def get_last_msg(self):
+        # Gets the web element of the last message received on the watsapp web client
+
+        chat_pane = '//*[@class="X7YrQ"]'
+        message = '//*[@class="FTBzM"]'
+
+        driver = self.webdriver
+        chat_panes = driver.find_elements_by_xpath(
+            chat_pane)  # Represents all your chats
+        for pane in chat_panes:
+            if "transform: translateY(0px);" in pane.get_attribute("style"):
+                last_active = pane
+                last_active.click()
+
+                WebDriverWait(self.webdriver, 2).until(
+                    EC.presence_of_element_located((By.XPATH, message)))
+
+                text_messages = driver.find_elements_by_xpath(message)
+
+                print(len(text_messages))
+                print("LAST MESSAGE FOUND: ", text_messages[-1])
+                return WappyMessage(web_element=text_messages[-1])
+
     def execute(self, message):
         query_name = message.get_query_name()
         if query_name in self.client.commands:
@@ -70,24 +91,6 @@ class WappyInterface:
             print(
                 f"Query {query_name} not found in client named {self.client.name}.")
             return False
-
-    def get_last_msg(self):
-        # Gets the web element of the last message received on the watsapp web client
-
-        chat_pane_id = "X7YrQ"
-        message_id = "FTBzM"
-
-        driver = self.webdriver
-        chat_panes = driver.find_elements(
-            By.ID, chat_pane_id)  # Represents all your chats
-
-        for pane in chat_panes:
-            if "transform: translateY(0px);" in pane.get_attribute("style"):
-                last_active = pane
-                last_active.click()
-                text_messages = driver.find_elements(By.ID, message_id)
-                print("LAST MESSAGE FOUND: ", text_messages[-1])
-                return WappyMessage(web_element=text_messages[-1])
 
     def post_text(self, msg):
         # TODO: Post a message to the watsapp web client
