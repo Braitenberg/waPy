@@ -8,8 +8,6 @@ from selenium.webdriver.remote.command import Command
 from message import WappyMessage
 
 from time import sleep
-import socket
-import http.client
 
 
 class WappyInterface:
