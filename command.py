@@ -5,9 +5,6 @@ class WappyCommand:
         self.kwargs = function.__code__.co_varnames
         self.usage_string = ""
 
-    def __str__(self):
-        return self.name
-
     def get_usage(self):
         if self.usage_string == "":
             # Generate usage string if not yet defined
@@ -19,7 +16,7 @@ class WappyCommand:
             self.usage_string = new_usage_string
         return self.usage_string
 
-    def execute(self, **kwargs):
-        # Should be called when webdriver detects the command is queried by user
-        print(f"Executing {self.name}")
-        return self.function(kwargs)
+    def execute(self, *args, **kwargs):
+        # Called when webdriver detects the command is queried by user
+        print(f"Executing command '{self.name}'")
+        return self.function(*args, **kwargs)

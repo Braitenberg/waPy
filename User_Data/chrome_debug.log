@@ -1,1 +1,3 @@
-[14624:2744:1022/162409.523:WARNING:discovery_network_list_win.cc(196)] Failed to open Wlan client handle: 1062
+[13304:17724:1023/122838.441:WARNING:discovery_network_list_win.cc(196)] Failed to open Wlan client handle: 1062
+[13304:15232:1023/125907.050:WARNING:pref_notifier_impl.cc(40)] Pref observer for browser.relaunch_notification_period found at shutdown.
+[13304:15232:1023/125907.050:WARNING:pref_notifier_impl.cc(40)] Pref observer for media_router.cast_allow_all_ips found at shutdown.

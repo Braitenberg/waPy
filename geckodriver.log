@@ -201,3 +201,20 @@ JavaScript warning: https://web.whatsapp.com/app.20893200811e56e44c78.js, line 2
 
 ###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
 
+1571819527194	mozrunner::runner	INFO	Running command: "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\GRIEKE~1\\AppData\\Local\\Temp\\rust_mozprofile60fB72"
+1571819529404	Marionette	INFO	Listening on port 62146
+1571819529526	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: chrome://browser/content/content.js, line 1192: TypeError: manifestURI is null
+JavaScript warning: https://web.whatsapp.com/app.3cafe004ac06f27722ce.js, line 2: unreachable code after return statement
+JavaScript warning: https://web.whatsapp.com/app.3cafe004ac06f27722ce.js, line 2: unreachable code after return statement
+[Parent 14892, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 1684, Chrome_ChildThread] WARNING[C: hild 3012, Chrome_Chi
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+pipe erro[rP:a r10e9n: tf i1le4 892, Gez:/build/build/src/ipc/chromium/src/cckho_IOThread] WARNrIomNGe:/ cpommoinp/ei pecr_rocrh:a nn1el0_w9i:n. cfci,l el izn:e/ b3u3i2l
+d/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[Child 4520, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 332
+[*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+

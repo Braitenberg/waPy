@@ -3,14 +3,14 @@ from client import WappyClient
 wappy = WappyClient(interface_webdriver='chrome', client_name='tritri-bot')
 
 
-def hello_world(name):
+def helloworld(name):
+    print('CALLED')
     return f'Hello, {name}'
 
 
-def get_money(iban_number, valuta):
+def getmoney(iban_number, valuta):
     return f"Yes, {iban_number} is a millionaire in {valuta}'s."
 
 
-wappy.initialize_commands([hello_world, get_money])
+wappy.initialize_commands([helloworld, getmoney])
 wappy.run()
-print('doing stuff...')
