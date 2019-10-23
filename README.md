@@ -9,8 +9,8 @@ The only automation possibilities Whatsapp has are for [businesses (?)](https://
 and they are quite limited.
 
 ## Getting Started ##
+You'll need to install a webdriver, which can be controlled by selenium.
 waPy uses [Selenium](https://github.com/SeleniumHQ/selenium) for browser automation.
-You'll also need to install a webdriver, which can be controlled by selenium.
 
 ### Webdriver ###
 Right now, the only available webdriver is the Chrome webdriver. 
