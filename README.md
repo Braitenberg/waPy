@@ -21,7 +21,7 @@ Watsapp web, which is quite a hassle.
 1. Downloaded the webdriver from [here](https://sites.google.com/a/chromium.org/chromedriver/downloads).
 2. Add the webdriver to your Path-variable like [so](https://helpdeskgeek.com/windows-10/add-windows-path-environment-variable/).
 
-### Example ###
+## Example ##
 ```python
 from waPy import client
 
