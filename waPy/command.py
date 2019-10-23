@@ -1,3 +1,5 @@
+import logging
+
 class WappyCommand:
     def __init__(self, function):
         self.function = function
@@ -18,5 +20,5 @@ class WappyCommand:
 
     def execute(self, *args, **kwargs):
         # Called when webdriver detects the command is queried by user
-        print(f"Executing command '{self.name}'")
+        logging.info(f"Executing command '{self.name}'")
         return self.function(*args, **kwargs)

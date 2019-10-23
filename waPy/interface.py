@@ -5,10 +5,10 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.command import Command
 
-from message import WappyMessage
+from waPy.message import WappyMessage
 
 from time import sleep
-
+import logging
 
 class WappyInterface:
     # Interface between the wappy client and the webdriver/browser
@@ -18,31 +18,31 @@ class WappyInterface:
         self.webdriver = None
         self.read_msg = None
         self.active = False
-        self.done = ""
+        self.done = None
         self.check_interval = 1  # Non-customizable for now, may cause instability
 
     def run(self):
-        print("Interface called, booting webdriver...")
+        logging.info("Interface called, booting webdriver...")
         self.webdriver = self.create_driver(self.webdriver_type)
         self.webdriver.get("https://web.whatsapp.com/") 
-
-        print(
-            f"driver {self.webdriver_type} booted! Awaiting whatsapp activation...")
+        logging.info(
+            f"{self.webdriver_type} driver booted! Awaiting whatsapp activation...")
 
         try:
             WebDriverWait(self.webdriver, 20).until(
                 EC.presence_of_element_located((By.XPATH, '//*[@class="X7YrQ"]')))
-        finally:
-            print('Nessecary elements loaded! Listening for queries...')
+        except:
+            self.stop()
 
-            self.active = True
+        logging.info('Necessary elements loaded! Listening for queries...')
+        self.active = True
 
-            while self.active:
-                self.execute_cmd_queries()
-                sleep(self.check_interval)
+        while self.active:
+            self.execute_cmd_queries()
+            sleep(self.check_interval)
 
     def stop(self):
-        print(f"Stopping interface of client '{self.client.name}'")
+        logging.info(f"Stopping interface of client '{self.client.name}'")
         self.active = False
         self.webdriver.close()
 
@@ -62,7 +62,7 @@ class WappyInterface:
                     self.post_text(self.execute_cmd(last_msg)) 
                 
         elif last_msg.is_query():
-             self.post_text(self.execute_cmd(last_msg)) 
+            self.post_text(self.execute_cmd(last_msg)) 
 
         self.done = last_msg
 
@@ -72,14 +72,14 @@ class WappyInterface:
         query_name = message.get_query_name()
         sender = message.get_sender()
 
-        print(f"User '{sender}' queried '{query_name}'.")
+        logging.info(f"User '{sender}' queried '{query_name}'.")
         
         match = [cmd for cmd in self.client.commands if cmd.name == query_name]
         if len(match) == 1:
             # Found a command, execute its function...
             return match[0].execute(*message.get_args())
         else:
-            print(
+            logging.info(
                 f"Query '{query_name}' not found in client '{self.client.name}'.")
             return False
 
@@ -96,14 +96,16 @@ class WappyInterface:
             try:
                 self.get_last_active(chat_panes).click()
             except Exception as error:
-                print(f"While clicking active pane, an error occured: {error}") 
+                logging.warning(f"While clicking active pane, an error occured: {error}") 
                 if attempts == 3:
-                    print("Attempt limit reached, closing interface...")
-                    self.close()
+                    logging.error("Attempt limit reached, closing interface...")
+                    self.stop()
                 else:
-                    print("Retrying click...")
+                    logging.info("Retrying click...")
                     sleep(self.check_interval)
                     continue
+
+            attempts += 1
             
 
 

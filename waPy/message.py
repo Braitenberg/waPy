@@ -1,4 +1,5 @@
 import re
+import logging
 class WappyMessage:
     def __init__(self, web_element):
         self.web_element = web_element
@@ -26,21 +27,19 @@ class WappyMessage:
         found = re.findall("/(\\w+) ", text)
         name = ""
         if len(found) > 1:
-            print(f"Ambiguous command: '{text}', detected several possible names.")
+            logging.warning(f"Ambiguous command: '{text}', detected several possible names.")
         else:
             name = found[0]
         return name
 
     def get_sender(self):
         # TODO: Get sender of this message
-        return "TODO: SENDERNAME"
+        return ""
 
     def get_args(self):
-
         found = re.findall("/\\w+ (.*)", self.get_text())
         if len(found) >= 1:
             args = found[0].split(' ')
         else:
             args = []
-        print(args)
         return args

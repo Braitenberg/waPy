@@ -10,8 +10,8 @@ setup(
   url = 'https://github.com/Braitenberg/waPy',   
   download_url = 'https://github.com/user/reponame/archive/v_01.tar.gz',    # I explain this later on
   keywords = ['whatsapp', 'web', 'bot', 'chatbot'],  
-  install_requires=[            # I get to this in a second
-          'validators',
+  install_requires=[         
+          'selenium',
           'beautifulsoup4',
       ],
   classifiers=[
