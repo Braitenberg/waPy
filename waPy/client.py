@@ -11,18 +11,21 @@ class WappyClient:
 
     def help(self, help_with=""):
         # This function is always available for chat users, and callable with '/help'
-        if help_with == "":
-            # Map out all loaded commands and their usage
-            help_string = f"*{self.name}*: The following commands are available: \n"
-            for cmd in self.commands:
-                if not cmd.name == 'help':
-                    help_string += f"- _{cmd.get_usage()}_\n"
+        if help_with != "help":
+            if help_with == "":
+                # Map out all loaded commands and their usage
+                help_string = f"*{self.name}*: The following commands are available: \n"
+                for cmd in self.commands:
+                    if not cmd.name == 'help':
+                        help_string += f"- _'{cmd.get_usage()}'_\n"
+            else:
+                for cmd in self.commands:
+                    if cmd.name == help_with:
+                        help_string = cmd.get_usage()
+                
+            return help_string
         else:
-            for cmd in self.commands:
-                if cmd.name == help_with:
-                    help_string = cmd.get_usage()
-            
-        return help_string
+            return "You've just broken the matrix by asking help with help. Thanks."
 
     def initialize_commands(self, function_list):
         self.commands.append(WappyCommand(self.help))

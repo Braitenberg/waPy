@@ -1,5 +1,7 @@
 import re
 import logging
+
+
 class WappyMessage:
     def __init__(self, web_element):
         self.web_element = web_element
@@ -15,10 +17,11 @@ class WappyMessage:
             return self.text
 
         try:
-            text_field = self.web_element.find_element_by_class_name("selectable-text")
+            text_field = self.web_element.find_element_by_class_name(
+                "selectable-text")
             text = text_field.text
-        except: 
-            #TODO: Specify to selenium.noSuchElementException
+        except:
+            # TODO: Specify to selenium.noSuchElementException
             text = "NOT-TEXT"
         return text
 
@@ -26,10 +29,9 @@ class WappyMessage:
         text = self.get_text() + ' '
         found = re.findall("/(\\w+) ", text)
         name = ""
-        if len(found) > 1:
-            logging.warning(f"Ambiguous command: '{text}', detected several possible names.")
-        else:
+        if found != []:
             name = found[0]
+            
         return name
 
     def get_sender(self):

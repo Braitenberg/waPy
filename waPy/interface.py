@@ -60,7 +60,7 @@ class WappyInterface:
             if last_msg.get_text() != self.done.get_text():
                 if last_msg.is_query():
                     self.post_text(self.execute_cmd(last_msg)) 
-                
+
         elif last_msg.is_query():
             self.post_text(self.execute_cmd(last_msg)) 
 
@@ -73,15 +73,15 @@ class WappyInterface:
         sender = message.get_sender()
 
         logging.info(f"User '{sender}' queried '{query_name}'.")
+        result = f"Query '{query_name}' not found in client '{self.client.name}'."
+        for cmd in self.client.commands:
+            if cmd.name == query_name:
+                try:
+                    result = cmd.execute(*message.get_args())
+                except Exception as exception:
+                    result = f"_{str(exception)}_ \n For more information, type '/help {query_name}'"
         
-        match = [cmd for cmd in self.client.commands if cmd.name == query_name]
-        if len(match) == 1:
-            # Found a command, execute its function...
-            return match[0].execute(*message.get_args())
-        else:
-            logging.info(
-                f"Query '{query_name}' not found in client '{self.client.name}'.")
-            return False
+        return result
 
     def get_last_msg(self):
         # Gets the web element of the last message received on the watsapp web client

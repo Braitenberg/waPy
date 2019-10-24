@@ -1,0 +1,2 @@
+[14536:18488:1024/152839.786:ERROR:persistent_memory_allocator.cc(844)] Corruption detected in shared-memory segment.
+[14536:13464:1024/152840.135:WARNING:discovery_network_list_win.cc(196)] Failed to open Wlan client handle: 1062
