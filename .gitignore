@@ -1,4 +1,4 @@
-/waPy/__pycache__
-/waPy/geckodriver.log
-/waPy/debug.log
-/waPy/User_Data
+__pycache__
+geckodriver.log
+debug.log
+User_Data
