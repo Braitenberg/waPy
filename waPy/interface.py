@@ -35,8 +35,9 @@ class WappyInterface:
             self.stop()
 
         logging.info('Necessary elements loaded! Listening for queries...')
-        self.active = True
 
+        self.active = True
+        
         while self.active:
             self.execute_cmd_queries()
             sleep(self.check_interval)
@@ -56,17 +57,19 @@ class WappyInterface:
 
     def execute_cmd_queries(self):
         last_msg = self.get_last_msg()
-        if self.done:
-            if last_msg.get_text() != self.done.get_text():
-                if last_msg.is_query():
-                    self.post_text(self.execute_cmd(last_msg)) 
+        do_query = False
+        if self.done and last_msg.get_text() != self.done.get_text():
+            # If it is the same message, ignore it
+            if last_msg.is_query():
+                do_query = True
 
         elif last_msg.is_query():
-            self.post_text(self.execute_cmd(last_msg)) 
+            do_query = True
+
+        if do_query:
+            self.post_text(self.execute_cmd(last_msg))
 
         self.done = last_msg
-
-    
 
     def execute_cmd(self, message):
         query_name = message.get_query_name()
